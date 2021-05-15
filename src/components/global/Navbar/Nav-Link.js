@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import {center} from '../../../style/mixins.js';
 import { Link } from 'react-router-dom';
 
 const NavItem = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  ${center};
   height: 50px;
   width: 70px;
   background: lightcyan;
