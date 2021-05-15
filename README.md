@@ -1,19 +1,8 @@
 # Single Page Applications Sprint Challenge
 
-**Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**
-
-This challenge allows you to practice the concepts and techniques learned over the past sprint and apply them in a concrete project. This sprint explored **single page applications**. During this sprint, you studied **routing, forms, and testing in cypress**. In your challenge this week, you will demonstrate your mastery of these skills by creating **Lambda Eats**, a website designed to bring food to hungry coders.
-
-This is an individual assessment. All work must be your own. Your challenge score is a measure of your ability to work independently using the material covered through this sprint. You need to demonstrate proficiency in the concepts and objectives introduced and practiced in preceding days.
-
-You are not allowed to collaborate during the sprint challenge. However, you are encouraged to follow the twenty-minute rule and seek support from your TL if you need direction.
-
-## Full Time Students
-
-_You have until 5pm PST to complete this challenge. The challenge is available from midnight on Thursday. However you should not be coding through the night; rather you can wake up on Friday and start coding at an hour you choose, rather than waiting for a unified start time. Ideally, you will be writing the majority of the code during the time block allocated on your calendar (9am to 1pm PST). And if you need extra time, there is a second time block allocated from 3pm - 5pm PST. CodeGrade submissions cannot be accepted beyond this time. Set up CodeGrade before you start coding to avoid common problems._
-
 ## Introduction
 
+### 
 In this challenge you will be working from the `Lambda Eats` homepage to create a functional `Pizza?` button that leads to a build your own pizza custom form.
 
 You may use the following wireframes (also in a folder above) as guidance as you design your site but it is not required that you do so.
@@ -24,9 +13,6 @@ You may use the following wireframes (also in a folder above) as guidance as you
 
 [Confirmation](https://tk-assets.lambdaschool.com/a0f43a34-9fab-4d2b-89f7-e23b22d32964_Pizza.gif)
 
-### Commits
-
-Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons) and your team lead as the evaluate your solution.
 
 ## Interview Questions
 
