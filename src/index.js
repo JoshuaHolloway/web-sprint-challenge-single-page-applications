@@ -7,10 +7,11 @@ import './App.scss';
 import styled from 'styled-components';
 import Home from './components/pages/Home/Home.js';
 import Navbar from './components/global/Navbar/Navbar.js';
+import Modal from './components/global/Modal/Modal.js';
 
 // ==============================================
 
-const App = styled.div`
+const App = styled.div` position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -30,6 +31,7 @@ const Main = styled.main`
 ReactDOM.render(
   <Router>
     <App>
+      
       <Header>
         <Navbar></Navbar>
       </Header>
@@ -46,6 +48,8 @@ ReactDOM.render(
           
         </Switch>
       </Main>
+
+      <Modal />
     </App>
   </Router>, 
   document.getElementById("root")
