@@ -19,11 +19,15 @@ const Div = styled.div` position: relative;
 `;
 
 
-const Hero = () => {
+const Hero = ({isModalVisible, setModalVisible}) => {
   return (
     <Div className="Hero">
       <h2>Your favorite food, delivered while coding!</h2>
-      <button>Pizza?</button>
+      <button onClick={() => {
+        console.log('clicked');
+        setModalVisible(!isModalVisible);
+        console.log('Hero.js ::: isModalVisible: ', isModalVisible);
+      }}>Pizza?</button>
     </Div>
   );
 };

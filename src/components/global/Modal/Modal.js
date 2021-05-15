@@ -4,8 +4,11 @@ import styled from 'styled-components';
 const modal_width = '80vw';
 const modal_height = '80vh';
 
+// ==============================================
+// ==============================================
+
 const Div = styled.div` position: absolute;
-  display: grid;
+  display: ${({visible}) => visible ? 'grid' : 'none'};
   grid-template-columns: 1fr;
   grid-template-rows: repeat(7, 1fr);
   
@@ -36,7 +39,9 @@ const init_form = {
 // ==============================================
 // ==============================================
 
-const Modal = () => {
+const Modal = ({visible, setVisible}) => {
+
+  // ============================================
 
   const [form, setForm] = useState(init_form);
 
@@ -58,8 +63,17 @@ const Modal = () => {
   // ============================================
 
   return (
-    <Div>
-      <div>Build Your Own Pizza</div>
+    <Div visible={visible}>
+      <div>
+        Build Your Own Pizza
+
+        <div onClick={() => setVisible(false)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+          </svg>
+        </div>
+
+      </div>
       
       <div>
         

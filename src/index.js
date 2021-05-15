@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import "./index.css";
@@ -28,10 +28,11 @@ const Main = styled.main`
 
 // ==============================================
 
-ReactDOM.render(
-  <Router>
+const AppContainer = () => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  return (
     <App>
-      
       <Header>
         <Navbar></Navbar>
       </Header>
@@ -39,7 +40,7 @@ ReactDOM.render(
       <Main>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <Home isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
           </Route>
 
           <Route path="/help">
@@ -49,8 +50,17 @@ ReactDOM.render(
         </Switch>
       </Main>
 
-      <Modal />
+      <Modal visible={isModalVisible} setVisible={setModalVisible}/>
     </App>
+  );
+};
+
+// ==============================================
+
+
+ReactDOM.render(
+  <Router>
+    <AppContainer />
   </Router>, 
   document.getElementById("root")
 );

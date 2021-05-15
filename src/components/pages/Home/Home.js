@@ -20,10 +20,10 @@ const Div = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = ({isModalVisible, setModalVisible}) => {
   return (
     <Div>
-      <Hero />
+      <Hero isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
       <Cards />
     </Div>
   );
