@@ -4,12 +4,14 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { gsap } from "gsap";
 import styled from 'styled-components';
+import {center} from '../../../style/mixins.js';
 
 // ==============================================
 // ==============================================
 
 const modal_width = '80vw';
 const modal_height = '80vh';
+const close_button_height = '50px';
 
 const Form = styled.form` position: absolute;
   z-index: 1;
@@ -28,6 +30,29 @@ const Form = styled.form` position: absolute;
 
   > * {
     border: solid white 3px; 
+  }
+
+  .form-title-container { position: relative;
+      ${center}
+
+      .close-button { position: absolute;
+        top: calc(50% - ${close_button_height} / 2);
+        right: 30px;
+        height: ${close_button_height};
+        width: ${close_button_height};
+        border: dashed black 5px;
+        svg {
+          height: 100%;
+          width: 100%;
+        }
+        animation-name: breathe;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease;
+        @keyframes breathe {
+          50% { transform: scaleX(1.2) scaleY(1.2); }
+        }
+      }
   }
 `;
 
@@ -52,7 +77,7 @@ const init_form = {
 // ==============================================
 
 const schema = yup.object().shape({
-  name:     yup.string().required('name is required').min(2, 'name must be at least 2 characters')
+  name: yup.string().required('name is required').min(2, 'name must be at least 2 characters')
 });
 
 // ==============================================
@@ -65,7 +90,6 @@ const Modal = () => {
   const inputRef            = useRef(null);
   const [form, setForm]     = useState(init_form);
   const [errors, setErrors] = useState({name: ''});
-
 
   // --------------------------------------------
 
@@ -135,10 +159,10 @@ const Modal = () => {
 
   return (
     <Form id="pizza-for" visible={true} ref={inputRef} onSubmit={onSubmit}>
-      <div>
-        Build Your Own Pizza
-        <div onClick={handleClick}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
+      <div className="form-title-container">
+        <h2>Build Your Own Pizza</h2>
+        <div className="close-button" onClick={handleClick}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
           </svg>
         </div>

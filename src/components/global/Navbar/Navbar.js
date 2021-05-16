@@ -19,12 +19,13 @@ const Logo = styled.div` position: absolute;
   background: red;
 
   ${font({ color: "white" })};
+  font-size: 2.7em;
 `;
 
 const Navbar = () => {
   return (
     <Nav>
-      <Logo>Pizza!</Logo>
+      <Logo>&lambda;</Logo>
       <NavLink name="Home" link="/" />
       <NavLink name="Help" link="/help" />
     </Nav>
