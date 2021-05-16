@@ -9,11 +9,11 @@ const modal_height = '80vh';
 // ==============================================
 // ==============================================
 
-const Div = styled.div` position: absolute;
+const Form = styled.form` position: absolute;
   z-index: 1;
   display: ${({visible}) => visible ? 'grid' : 'none'};
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   
   top:  calc( 50% - ${modal_height}/ 2);
   left: calc( 50% - ${modal_width} / 2);
@@ -33,6 +33,7 @@ const Div = styled.div` position: absolute;
 // ==============================================
 const init_form = {
   name: '',                // text
+  special_text: '',        // textarea
   age: '',                 // number
   email: '',               // text
   password: '',            // text
@@ -40,6 +41,8 @@ const init_form = {
   radio: null,             // radio
   check1: false,           // checkbox
   check2: false,           // checkbox
+  check3: false,           // checkbox
+  check4: false,           // checkbox
   drop: ''                 // dropdown
 };
 // ==============================================
@@ -87,11 +90,9 @@ const Modal = () => {
   }
 
   return (
-    <Div visible={true} ref={inputRef}>
+    <Form id="pizza-for" visible={true} ref={inputRef}>
       <div>
         Build Your Own Pizza
-
-        {/* TODO: Change this to a Link to link back to / */}
         <div onClick={handleClick}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
@@ -105,7 +106,7 @@ const Modal = () => {
         <h5>Choice of Size</h5>
         <p>Required</p>
         
-        <select name="drop" value={form.drop} onChange={onChange}>
+        <select id="size-dropdown" name="drop" value={form.drop} onChange={onChange}>
           <option value="">Choose One!</option>
           <option value="drop1">Drop 1</option>
           <option value="drop2">Drop 2</option>
@@ -134,6 +135,7 @@ const Modal = () => {
         </label>
 
       </div>
+
       <div>
         <h5>Add Toppings</h5>
         <p>Required</p>
@@ -156,7 +158,26 @@ const Modal = () => {
           />
         </label>
 
+        {/* check3: false,           // checkbox */}
+        <label>
+          Check 3
+          <input type="checkbox" name="check3" 
+            checked={form.check3} // GUI check if form: {..., check3: true, ...} 
+            onChange={onChange} 
+          />
+        </label>
+
+        {/* check4: false,           // checkbox */}
+        <label>
+          Check 4
+          <input type="checkbox" name="check4" 
+            checked={form.check4} // GUI check if form: {..., check4: true, ...} 
+            onChange={onChange} 
+          />
+        </label>
+
       </div>
+
       <div>
         <h5>Choice of Substitute</h5>
         <p>Required</p>
@@ -176,18 +197,32 @@ const Modal = () => {
         <h5>Special Instructions</h5>
         <p>Required</p>
 
+        {/* special_text: '',                // textarea */}
+        <label>
+          <textarea id="special-text" name="special_text" value={form.special_text} onChange={onChange} placeholder="Anything else you'd like to add?"/>
+        </label>
+
+      </div>
+      
+
+      <div>
+        <h5>Name</h5>
+        <p>Required</p>
+
         {/* name: '',                // text */}
         <label>
-          <textarea name="name" value={form.name} onChange={onChange} placeholder="Anything else you'd like to add?"/>
+          <input id="name-input" name="name" value={form.name} onChange={onChange} placeholder="name"/>
         </label>
 
       </div>
       
       <div>
         <input type="number" />
-        <button>Add to Order $17.99</button>
+        <button id="order-button" type="submit" onClick={() => {
+          alert('submitting form!');
+        }}>Add to Order $17.99</button>
       </div>
-    </Div>
+    </Form>
   );
 };
 

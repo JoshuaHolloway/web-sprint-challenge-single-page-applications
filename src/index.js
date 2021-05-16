@@ -41,26 +41,11 @@ const AppContainer = () => {
 
   // --------------------------------------------
 
-  const inputRef = useRef('');
-
-  // --------------------------------------------
-
-  function querySelector() {
-    const elem = inputRef.current;
-    console.log(elem);
-    gsap.to(elem, {x: '50px'});
-  }
-
-  // --------------------------------------------
-
   return (
     <App>
       <Header>
         <Navbar></Navbar>
       </Header>
-
-      <div ref={inputRef} className="josh"></div>
-      <button onClick={querySelector}>Start</button>
 
       <Main>
 

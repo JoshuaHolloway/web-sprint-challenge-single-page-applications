@@ -46,7 +46,7 @@ const Hero = () => {
     <Div className="Hero">
       <h2>Your favorite food, delivered while coding!</h2>
 
-      <Link className="Link" to='/pizza'>
+      <Link id="order-pizza" className="Link" to='/pizza'>
         <h5>Pizza?</h5>
       </Link>
     </Div>
