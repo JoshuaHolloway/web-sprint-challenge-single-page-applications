@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 import { gsap } from "gsap";
 import styled from 'styled-components';
 
@@ -32,18 +33,18 @@ const Form = styled.form` position: absolute;
 // ==============================================
 // ==============================================
 const init_form = {
-  name: '',                // text
-  special_text: '',        // textarea
-  age: '',                 // number
-  email: '',               // text
-  password: '',            // text
-  terms_of_service: false, // checkbox
-  radio: null,             // radio
-  check1: false,           // checkbox
-  check2: false,           // checkbox
-  check3: false,           // checkbox
-  check4: false,           // checkbox
-  drop: ''                 // dropdown
+  name: '',                 // text
+  special_text: '',         // textarea
+  age: '',                  // number
+  email: '',                // text
+  password: '',             // text
+  gluten_free_crust: false, // checkbox
+  radio: null,              // radio
+  topping1: false,          // checkbox
+  topping2: false,          // checkbox
+  topping3: false,          // checkbox
+  topping4: false,          // checkbox
+  drop: ''                  // dropdown
 };
 // ==============================================
 // ==============================================
@@ -80,17 +81,39 @@ const Modal = () => {
 
   // --------------------------------------------
   const history = useHistory();
-
   function handleClick() {
     const duration = 0.5;
     gsap.to(inputRef.current, {opacity: 0, duration});
-    setTimeout(() => {
-      history.push("/");
-    }, duration * 1e3);
+    setTimeout(() => history.push("/"), duration * 1e3);
   }
 
+  // --------------------------------------------
+
+  const onPost = (event) => {
+    event.preventDefault();
+
+    //name: string,
+    //size: string,
+    //topping1: bool,
+    //topping2: bool,
+    //special: string,
+    const form_data = {
+      "name": `${form.name}`,
+      "special": `${form.special_text}`,
+      "gluten_free_crust": `${form.gluten_free_crust}`,
+      "topping1": `${form.topping1}`,
+      "topping2": `${form.topping2}`,
+      "topping3": `${form.topping3}`,
+      "topping4": `${form.topping4}`,
+      "radio": `${form.radio}`,
+      "drop": `${form.drop}`
+    };
+  };
+
+  // --------------------------------------------
+
   return (
-    <Form id="pizza-for" visible={true} ref={inputRef}>
+    <Form id="pizza-for" visible={true} ref={inputRef} onSubmit={onPost}>
       <div>
         Build Your Own Pizza
         <div onClick={handleClick}>
@@ -101,8 +124,8 @@ const Modal = () => {
 
       </div>
       
+      {/* drop: select */}
       <div>
-        
         <h5>Choice of Size</h5>
         <p>Required</p>
         
@@ -115,10 +138,12 @@ const Modal = () => {
 
       </div>
       
+      {/* radio: radio */}
       <div>
         <h5>Choice of Sauce</h5>
         <p>Required</p>
 
+        {/* radio: radio-1 */}
         <label>
           Radio 1
           <input type="radio" name="radio" value="radio-1"  //  form: {..., name:  value, ...}
@@ -126,6 +151,8 @@ const Modal = () => {
             onChange={onChange} 
           />
         </label>
+
+        {/* radio: radio-2 */}
         <label>
           Radio 2 
           <input type="radio" name="radio" value="radio-2"  //  form: {..., name:  value, ...}
@@ -136,63 +163,65 @@ const Modal = () => {
 
       </div>
 
+      {/* topping1, ..., topping4: checkbox's */}
       <div>
         <h5>Add Toppings</h5>
         <p>Required</p>
 
-        {/* check1: false,           // checkbox */}
+        {/* topping1: checkbox */}
         <label>
           Check 1
-          <input type="checkbox" name="check1" 
-            checked={form.check1} // GUI check if form: {..., check1: true, ...} 
+          <input type="checkbox" name="topping1" 
+            checked={form.topping1} // GUI check if form: {..., topping1: bool, ...} 
             onChange={onChange} 
           />
         </label>
 
-        {/* check2: false,           // checkbox */}
+        {/* topping2: checkbox */}
         <label>
           Check 2
-          <input type="checkbox" name="check2" 
-            checked={form.check2} // GUI check if form: {..., check2: true, ...} 
+          <input type="checkbox" name="topping2" 
+            checked={form.topping2} // GUI check if form: {..., topping2: bool, ...} 
             onChange={onChange} 
           />
         </label>
 
-        {/* check3: false,           // checkbox */}
+        {/* topping3: checkbox */}
         <label>
           Check 3
-          <input type="checkbox" name="check3" 
-            checked={form.check3} // GUI check if form: {..., check3: true, ...} 
+          <input type="checkbox" name="topping3" 
+            checked={form.topping3} // GUI check if form: {..., topping3: bool, ...} 
             onChange={onChange} 
           />
         </label>
 
-        {/* check4: false,           // checkbox */}
+        {/* topping4: checkbox */}
         <label>
           Check 4
-          <input type="checkbox" name="check4" 
-            checked={form.check4} // GUI check if form: {..., check4: true, ...} 
+          <input type="checkbox" name="topping4" 
+            checked={form.topping4} // GUI check if form: {..., topping4: bool, ...} 
             onChange={onChange} 
           />
         </label>
 
       </div>
 
+      {/* gluten_free_crust: checkbox */}
       <div>
         <h5>Choice of Substitute</h5>
         <p>Required</p>
 
-        {/* terms_of_service: false, // checkbox */}
         <label>
           Gluten Free Crust (+ $1.00)
-          <input type="checkbox" name="terms_of_service" 
-            checked={form.terms_of_service} // GUI check if form: {..., terms_of_service: true, ...} 
+          <input type="checkbox" name="gluten_free_crust" 
+            checked={form.gluten_free_crust} // GUI check if form: {..., gluten_free_crust: boolean, ...} 
             onChange={onChange} 
           />
         </label>
 
       </div>
       
+      {/* special_text: textarea */}
       <div>
         <h5>Special Instructions</h5>
         <p>Required</p>
@@ -204,23 +233,21 @@ const Modal = () => {
 
       </div>
       
-
+      {/* name: text */}
       <div>
         <h5>Name</h5>
         <p>Required</p>
 
-        {/* name: '',                // text */}
         <label>
           <input id="name-input" name="name" value={form.name} onChange={onChange} placeholder="name"/>
         </label>
 
       </div>
       
+      {/* submit button */}
       <div>
         <input type="number" />
-        <button id="order-button" type="submit" onClick={() => {
-          alert('submitting form!');
-        }}>Add to Order $17.99</button>
+        <button id="order-button" type="submit">Add to Order $17.99</button>
       </div>
     </Form>
   );
