@@ -8,6 +8,7 @@ const modal_height = '80vh';
 // ==============================================
 
 const Div = styled.div` position: absolute;
+  z-index: 1;
   display: ${({visible}) => visible ? 'grid' : 'none'};
   grid-template-columns: 1fr;
   grid-template-rows: repeat(7, 1fr);
@@ -17,6 +18,12 @@ const Div = styled.div` position: absolute;
   width:  ${modal_width};
   height: ${modal_height};
   background: orange;
+
+  opacity: 0;
+  transition: transform 1s ease;
+  &:hover {
+    opacity: 1;
+  }
 
   > * {
     border: solid white 3px; 
