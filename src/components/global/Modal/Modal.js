@@ -89,14 +89,10 @@ const Modal = () => {
 
   // --------------------------------------------
 
-  const onPost = (event) => {
+  const onSubmit = (event) => {
+    console.log('onSubmit()  ::::  event.target: ', event.target);
     event.preventDefault();
 
-    //name: string,
-    //size: string,
-    //topping1: bool,
-    //topping2: bool,
-    //special: string,
     const form_data = {
       "name": `${form.name}`,
       "special": `${form.special_text}`,
@@ -108,12 +104,18 @@ const Modal = () => {
       "radio": `${form.radio}`,
       "drop": `${form.drop}`
     };
+
+    axios.post('https://reqres.in/api/orders', form_data)
+      .then((response) => {
+        console.log('response.data: ', response.data);
+        // setUsers(response.data);
+      });
   };
 
   // --------------------------------------------
 
   return (
-    <Form id="pizza-for" visible={true} ref={inputRef} onSubmit={onPost}>
+    <Form id="pizza-for" visible={true} ref={inputRef} onSubmit={onSubmit}>
       <div>
         Build Your Own Pizza
         <div onClick={handleClick}>
@@ -246,6 +248,7 @@ const Modal = () => {
       
       {/* submit button */}
       <div>
+        {/* TODO: Wire up this input */}
         <input type="number" />
         <button id="order-button" type="submit">Add to Order $17.99</button>
       </div>
