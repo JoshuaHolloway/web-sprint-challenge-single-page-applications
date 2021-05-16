@@ -1,14 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import * as yup from 'yup';
 import { gsap } from "gsap";
 import styled from 'styled-components';
 
+// ==============================================
+// ==============================================
+
 const modal_width = '80vw';
 const modal_height = '80vh';
-
-// ==============================================
-// ==============================================
 
 const Form = styled.form` position: absolute;
   z-index: 1;
@@ -46,6 +47,14 @@ const init_form = {
   topping4: false,          // checkbox
   drop: ''                  // dropdown
 };
+
+// ==============================================
+// ==============================================
+
+const schema = yup.object().shape({
+  name:     yup.string().required('name is required').min(2, 'name must be at least 2 characters')
+});
+
 // ==============================================
 // ==============================================
 
@@ -53,8 +62,10 @@ const Modal = () => {
 
   // --------------------------------------------
 
-  const inputRef = useRef(null);
-  const [form, setForm] = useState(init_form);
+  const inputRef            = useRef(null);
+  const [form, setForm]     = useState(init_form);
+  const [errors, setErrors] = useState({name: ''});
+
 
   // --------------------------------------------
 
@@ -67,19 +78,27 @@ const Modal = () => {
   // --------------------------------------------
 
   const onChange = (event) => {
+    
+    const setFormErrors = (name, value) => {
+      yup.reach(schema, name).validate(value)
+        .then(  ()    => setErrors({ ...errors, [name]: '' }) ) // succssful validation => no error
+        .catch( (err) => setErrors({ ...errors, [name]: err.errors[0] }) )
+    };
+
     console.log('value: ', event.target.value, ', type: ', event.target.type);
     const { checked, type, name, value } = event.target;
     if ( type == 'checkbox' ) {
-      // setFormErrors(name, checked);
+      setFormErrors(name, checked);
       setForm( {...form, [name]: checked} );
     }
     else {
-      // setFormErrors(name, value);
+      setFormErrors(name, value);
       setForm( {...form, [name]: value} );
     }
   };
 
   // --------------------------------------------
+
   const history = useHistory();
   function handleClick() {
     const duration = 0.5;
@@ -244,6 +263,10 @@ const Modal = () => {
           <input id="name-input" name="name" value={form.name} onChange={onChange} placeholder="name"/>
         </label>
 
+        <div style={{ color: 'red' }}>
+          <div>{errors.name}</div>
+        </div>
+      
       </div>
       
       {/* submit button */}
