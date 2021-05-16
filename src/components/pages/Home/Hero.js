@@ -41,7 +41,7 @@ const Div = styled.div` position: relative;
   }
 `;
 
-const Hero = ({isModalVisible, setModalVisible}) => {
+const Hero = () => {
   return (
     <Div className="Hero">
       <h2>Your favorite food, delivered while coding!</h2>

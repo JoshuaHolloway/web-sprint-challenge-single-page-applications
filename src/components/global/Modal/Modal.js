@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import { useHistory } from "react-router-dom";
+import { gsap } from "gsap";
 import styled from 'styled-components';
 
 const modal_width = '80vw';
@@ -20,10 +22,7 @@ const Div = styled.div` position: absolute;
   background: orange;
 
   opacity: 0;
-  transition: transform 1s ease;
-  &:hover {
-    opacity: 1;
-  }
+  /* TODO: Add gsap to transition opacity upon first render, and could do the reverse by  */
 
   > * {
     border: solid white 3px; 
@@ -46,13 +45,22 @@ const init_form = {
 // ==============================================
 // ==============================================
 
-const Modal = ({visible, setVisible}) => {
+const Modal = () => {
 
-  // ============================================
+  // --------------------------------------------
 
+  const inputRef = useRef(null);
   const [form, setForm] = useState(init_form);
 
-  // ============================================
+  // --------------------------------------------
+
+  useEffect(() => {
+    const elem = inputRef.current;
+    console.log('Modal.js, elem: ', elem);
+    gsap.to(elem, {opacity: 1, duration: 0.5});
+  }, []);
+
+  // --------------------------------------------
 
   const onChange = (event) => {
     console.log('value: ', event.target.value, ', type: ', event.target.type);
@@ -67,14 +75,24 @@ const Modal = ({visible, setVisible}) => {
     }
   };
 
-  // ============================================
+  // --------------------------------------------
+  const history = useHistory();
+
+  function handleClick() {
+    const duration = 0.5;
+    gsap.to(inputRef.current, {opacity: 0, duration});
+    setTimeout(() => {
+      history.push("/");
+    }, duration * 1e3);
+  }
 
   return (
-    <Div visible={visible}>
+    <Div visible={true} ref={inputRef}>
       <div>
         Build Your Own Pizza
 
-        <div onClick={() => setVisible(false)}>
+        {/* TODO: Change this to a Link to link back to / */}
+        <div onClick={handleClick}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
             <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
           </svg>

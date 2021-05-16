@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React, {useRef} from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { gsap } from "gsap";
@@ -29,8 +29,7 @@ const App = styled.div` position: relative;
 const Header = styled.header`
   height: 70px;
 `;
-const modal_width = '80vw';
-const modal_height = '80vh';
+
 const Main = styled.main`  position: relative;
   flex-grow: 1;
   background: lightblue;
@@ -43,7 +42,6 @@ const AppContainer = () => {
   // --------------------------------------------
 
   const inputRef = useRef('');
-  const [isModalVisible, setModalVisible] = useState(false);
 
   // --------------------------------------------
 
@@ -66,16 +64,13 @@ const AppContainer = () => {
 
       <Main>
 
-
           <Route path="/pizza">
-
-              <Modal visible={true} setVisible={setModalVisible}/>
-
-            <Home isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
+            <Modal/>
+            <Home/>
           </Route>
 
           <Route exact path="/">
-            <Home isModalVisible={isModalVisible} setModalVisible={setModalVisible}/>
+            <Home/>
           </Route>
   
           <Route path="/help">
