@@ -9,7 +9,7 @@ const Div = styled.div`
   border: dashed yellow 4px;
 
   div:first-child {
-    background: darkorange;
+    background: lightgreen;
   }
   h5 {
     background: deeppink;

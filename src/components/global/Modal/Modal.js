@@ -50,7 +50,7 @@ const Form = styled.form` position: absolute;
         animation-iteration-count: infinite;
         animation-timing-function: ease;
         @keyframes breathe {
-          50% { transform: scaleX(1.2) scaleY(1.2); }
+          50% { transform: scaleX(1.06) scaleY(1.06); }
         }
       }
   }
