@@ -55,7 +55,7 @@ const Form = styled.form` position: absolute;
   .form-row {
     ${center}
     .form-col {  
-      /* border: solid white 1px; */
+      border: solid white 1px;
     }
   }
 
@@ -109,9 +109,18 @@ const Modal = () => {
   const onChange = (event) => {
     
     const setFormErrors = (name, value) => {
-      yup.reach(schema, name).validate(value)
-        .then(  ()    => setErrors({ ...errors, [name]: '' }) ) // succssful validation => no error
-        .catch( (err) => setErrors({ ...errors, [name]: err.errors[0] }) )
+      if (name === 'name') {
+        // NOTE: Only validating for name input!!!
+        //      -Change schema and remove the if(name==='name') statement
+        //       to validate other input fields
+        yup.reach(schema, name).validate(value)
+          .then( () => {
+            setErrors({ ...errors, [name]: '' })
+          }) // succssful validation => no error
+          .catch( (err) => {
+            setErrors({ ...errors, [name]: err.errors[0] }) 
+          })
+        } // if (name === 'name)
     };
 
     console.log('value: ', event.target.value, ', type: ', event.target.type);
@@ -224,7 +233,7 @@ const Modal = () => {
           {/* topping1: checkbox */}
           <label>
             Check 1
-            <input type="checkbox" name="topping1" 
+            <input id="check-1" type="checkbox" name="topping1" 
               checked={form.topping1} // GUI check if form: {..., topping1: bool, ...} 
               onChange={onChange} 
             />
@@ -233,7 +242,7 @@ const Modal = () => {
           {/* topping2: checkbox */}
           <label>
             Check 2
-            <input type="checkbox" name="topping2" 
+            <input id="check-2" type="checkbox" name="topping2" 
               checked={form.topping2} // GUI check if form: {..., topping2: bool, ...} 
               onChange={onChange} 
             />
@@ -242,7 +251,7 @@ const Modal = () => {
           {/* topping3: checkbox */}
           <label>
             Check 3
-            <input type="checkbox" name="topping3" 
+            <input id="check-3" type="checkbox" name="topping3" 
               checked={form.topping3} // GUI check if form: {..., topping3: bool, ...} 
               onChange={onChange} 
             />
@@ -251,7 +260,7 @@ const Modal = () => {
           {/* topping4: checkbox */}
           <label>
             Check 4
-            <input type="checkbox" name="topping4" 
+            <input id="check-4" type="checkbox" name="topping4" 
               checked={form.topping4} // GUI check if form: {..., topping4: bool, ...} 
               onChange={onChange} 
             />

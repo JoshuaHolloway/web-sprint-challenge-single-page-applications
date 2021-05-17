@@ -53,8 +53,8 @@ Your finished project must include all of the following requirements:
 Implement the following tests in Cypress:
 
 - [x] test that you can add text to the box
-- [ ] test that you can select multiple toppings
-- [ ] test that you can submit the form
+- [x] test that you can select multiple toppings
+- [x] test that you can submit the form
 
 
 ### Task 3: Stretch Goals

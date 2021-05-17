@@ -18,9 +18,15 @@ describe('Test App', () => {
 
   it('can add text to the box', () => {
     cy.get('#name-input').type('josh');
-  })
+  });
+
+  it('can select multiple toppings', () => {
+    cy.get('#check-1').check();
+    cy.get('#check-3').check();
+  });
+
   it('can submit the form', () => {
-    cy.get('#name-input').type('ab');
+    cy.get('#name-input').type(' holloway');
     cy.get('#pizza-form').submit();
   });
 });
