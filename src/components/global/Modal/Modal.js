@@ -15,18 +15,15 @@ const close_button_height = '50px';
 
 const Form = styled.form` position: absolute;
   z-index: 1;
+  top:  calc( 50% - ${modal_height}/ 2);
+  left: calc( 50% - ${modal_width} / 2);
   display: ${({visible}) => visible ? 'grid' : 'none'};
   grid-template-columns: 1fr;
   grid-template-rows: repeat(8, 1fr);
-  
-  top:  calc( 50% - ${modal_height}/ 2);
-  left: calc( 50% - ${modal_width} / 2);
   width:  ${modal_width};
   height: ${modal_height};
   background: orange;
-
   opacity: 0;
-  /* TODO: Add gsap to transition opacity upon first render, and could do the reverse by  */
 
   > * {
     border: solid white 3px; 
@@ -54,6 +51,14 @@ const Form = styled.form` position: absolute;
         }
       }
   }
+
+  .form-row {
+    ${center}
+    .form-col {  
+      /* border: solid white 1px; */
+    }
+  }
+
 `;
 
 // ==============================================
@@ -158,7 +163,7 @@ const Modal = () => {
   // --------------------------------------------
 
   return (
-    <Form id="pizza-for" visible={true} ref={inputRef} onSubmit={onSubmit}>
+    <Form id="pizza-form" visible={true} ref={inputRef} onSubmit={onSubmit}>
       <div className="form-title-container">
         <h2>Build Your Own Pizza</h2>
         <div className="close-button" onClick={handleClick}>
@@ -170,134 +175,142 @@ const Modal = () => {
       </div>
       
       {/* drop: select */}
-      <div>
-        <h5>Choice of Size</h5>
-        <p>Required</p>
-        
-        <select id="size-dropdown" name="drop" value={form.drop} onChange={onChange}>
-          <option value="">Choose One!</option>
-          <option value="drop1">Drop 1</option>
-          <option value="drop2">Drop 2</option>
-          <option value="drop3">Drop 3</option>
-        </select>
-
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Choice of Size</h5>
+          <p>Required</p>
+          
+          <select id="size-dropdown" name="drop" value={form.drop} onChange={onChange}>
+            <option value="">Choose One!</option>
+            <option value="drop1">Drop 1</option>
+            <option value="drop2">Drop 2</option>
+            <option value="drop3">Drop 3</option>
+          </select>
+        </div>
       </div>
       
       {/* radio: radio */}
-      <div>
-        <h5>Choice of Sauce</h5>
-        <p>Required</p>
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Choice of Sauce</h5>
+          <p>Required</p>
 
-        {/* radio: radio-1 */}
-        <label>
-          Radio 1
-          <input type="radio" name="radio" value="radio-1"  //  form: {..., name:  value, ...}
-            checked={form.radio == 'radio-1'}               //              radio: radio-1
-            onChange={onChange} 
-          />
-        </label>
+          {/* radio: radio-1 */}
+          <label>
+            Radio 1
+            <input type="radio" name="radio" value="radio-1"  //  form: {..., name:  value, ...}
+              checked={form.radio == 'radio-1'}               //              radio: radio-1
+              onChange={onChange} 
+            />
+          </label>
 
-        {/* radio: radio-2 */}
-        <label>
-          Radio 2 
-          <input type="radio" name="radio" value="radio-2"  //  form: {..., name:  value, ...}
-            checked={form.radio == 'radio-2'}               //              radio: radio-2
-            onChange={onChange} 
-          />
-        </label>
-
+          {/* radio: radio-2 */}
+          <label>
+            Radio 2 
+            <input type="radio" name="radio" value="radio-2"  //  form: {..., name:  value, ...}
+              checked={form.radio == 'radio-2'}               //              radio: radio-2
+              onChange={onChange} 
+            />
+          </label>
+        </div>
       </div>
 
       {/* topping1, ..., topping4: checkbox's */}
-      <div>
-        <h5>Add Toppings</h5>
-        <p>Required</p>
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Add Toppings</h5>
+          <p>Required</p>
 
-        {/* topping1: checkbox */}
-        <label>
-          Check 1
-          <input type="checkbox" name="topping1" 
-            checked={form.topping1} // GUI check if form: {..., topping1: bool, ...} 
-            onChange={onChange} 
-          />
-        </label>
+          {/* topping1: checkbox */}
+          <label>
+            Check 1
+            <input type="checkbox" name="topping1" 
+              checked={form.topping1} // GUI check if form: {..., topping1: bool, ...} 
+              onChange={onChange} 
+            />
+          </label>
 
-        {/* topping2: checkbox */}
-        <label>
-          Check 2
-          <input type="checkbox" name="topping2" 
-            checked={form.topping2} // GUI check if form: {..., topping2: bool, ...} 
-            onChange={onChange} 
-          />
-        </label>
+          {/* topping2: checkbox */}
+          <label>
+            Check 2
+            <input type="checkbox" name="topping2" 
+              checked={form.topping2} // GUI check if form: {..., topping2: bool, ...} 
+              onChange={onChange} 
+            />
+          </label>
 
-        {/* topping3: checkbox */}
-        <label>
-          Check 3
-          <input type="checkbox" name="topping3" 
-            checked={form.topping3} // GUI check if form: {..., topping3: bool, ...} 
-            onChange={onChange} 
-          />
-        </label>
+          {/* topping3: checkbox */}
+          <label>
+            Check 3
+            <input type="checkbox" name="topping3" 
+              checked={form.topping3} // GUI check if form: {..., topping3: bool, ...} 
+              onChange={onChange} 
+            />
+          </label>
 
-        {/* topping4: checkbox */}
-        <label>
-          Check 4
-          <input type="checkbox" name="topping4" 
-            checked={form.topping4} // GUI check if form: {..., topping4: bool, ...} 
-            onChange={onChange} 
-          />
-        </label>
-
+          {/* topping4: checkbox */}
+          <label>
+            Check 4
+            <input type="checkbox" name="topping4" 
+              checked={form.topping4} // GUI check if form: {..., topping4: bool, ...} 
+              onChange={onChange} 
+            />
+          </label>
+        </div>
       </div>
 
       {/* gluten_free_crust: checkbox */}
-      <div>
-        <h5>Choice of Substitute</h5>
-        <p>Required</p>
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Choice of Substitute</h5>
+          <p>Required</p>
 
-        <label>
-          Gluten Free Crust (+ $1.00)
-          <input type="checkbox" name="gluten_free_crust" 
-            checked={form.gluten_free_crust} // GUI check if form: {..., gluten_free_crust: boolean, ...} 
-            onChange={onChange} 
-          />
-        </label>
-
+          <label>
+            Gluten Free Crust (+ $1.00)
+            <input type="checkbox" name="gluten_free_crust" 
+              checked={form.gluten_free_crust} // GUI check if form: {..., gluten_free_crust: boolean, ...} 
+              onChange={onChange} 
+            />
+          </label>
+        </div>
       </div>
       
       {/* special_text: textarea */}
-      <div>
-        <h5>Special Instructions</h5>
-        <p>Required</p>
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Special Instructions</h5>
+          <p>Required</p>
 
-        {/* special_text: '',                // textarea */}
-        <label>
-          <textarea id="special-text" name="special_text" value={form.special_text} onChange={onChange} placeholder="Anything else you'd like to add?"/>
-        </label>
-
+          {/* special_text: '',                // textarea */}
+          <label>
+            <textarea id="special-text" name="special_text" value={form.special_text} onChange={onChange} placeholder="Anything else you'd like to add?"/>
+          </label>
+        </div>
       </div>
       
       {/* name: text */}
-      <div>
-        <h5>Name</h5>
-        <p>Required</p>
+      <div className="form-row">
+        <div className="form-col">
+          <h5>Name</h5>
+          <p>Required</p>
 
-        <label>
-          <input id="name-input" name="name" value={form.name} onChange={onChange} placeholder="name"/>
-        </label>
+          <label>
+            <input id="name-input" name="name" value={form.name} onChange={onChange} placeholder="name"/>
+          </label>
 
-        <div style={{ color: 'red' }}>
-          <div>{errors.name}</div>
+          <div style={{ color: 'red' }}>
+            <div>{errors.name}</div>
+          </div>
         </div>
-      
       </div>
       
       {/* submit button */}
-      <div>
-        {/* TODO: Wire up this input */}
-        <input type="number" />
-        <button id="order-button" type="submit">Add to Order $17.99</button>
+      <div className="form-row">
+        <div className="form-col">
+          {/* TODO: Wire up this input */}
+          <input type="number" />
+          <button id="order-button" type="submit">Add to Order $17.99</button>
+        </div>
       </div>
     </Form>
   );

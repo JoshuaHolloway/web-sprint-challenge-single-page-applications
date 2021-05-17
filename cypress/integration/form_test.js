@@ -19,4 +19,8 @@ describe('Test App', () => {
   it('can add text to the box', () => {
     cy.get('#name-input').type('josh');
   })
+  it('can submit the form', () => {
+    cy.get('#name-input').type('ab');
+    cy.get('#pizza-form').submit();
+  });
 });
